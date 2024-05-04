@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+app:
+  endpoint:
+    routers:
+      character:
+        url: ${URL_CHARACTER:https://rickandmortyapi.com/api/character/}
+      location:
+        url: ${URL_LOCATION:https://rickandmortyapi.com/api/location/}
