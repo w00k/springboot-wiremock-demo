@@ -20,9 +20,6 @@ public class RickAndMortyServiceImpl implements RickAndMortyService {
     @Value("${app.endpoint.routers.character.url}")
     private String character;
 
-    @Value("${app.endpoint.routers.location.url}")
-    private String location;
-
     public RickAndMortyResponse callAclService(int idCharacter) {
 
         logger.info("callAclService start");
