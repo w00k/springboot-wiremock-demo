@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RickAndMortyServiceImpl implements RickAndMortyService {
 
-    private LoggerConfiguration logger = LoggerConfiguration.getLogger("RickAndMortyServiceImpl");
+    private final LoggerConfiguration logger = LoggerConfiguration.getLogger("RickAndMortyServiceImpl");
 
     RestTemplate restTemplate = new RestTemplate();
 

@@ -1,6 +1,7 @@
 package com.javachool.demo.service;
 
 import com.javachool.demo.exception.CommunicationException;
+import com.javachool.demo.exception.ObjectNotFoundException;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import com.javachool.demo.model.CharacterResponse;
 import com.javachool.demo.model.LocationResponse;
@@ -59,10 +62,21 @@ public class RickAndMortyServiceTest {
     void getCharacterByIdWhenCharacterNotFoundTest() throws IOException {
         //prepate data
         int idCharacter = 1001;
-        CharacterResponse characterResponse = objectFromJson("/stubs/response_404_character_1001.json", CharacterResponse.class);
-
         //mock
-        when(restTemplate.getForObject(characterURL + idCharacter, CharacterResponse.class)).thenReturn(characterResponse);
+        when(restTemplate.getForObject(characterURL + idCharacter, CharacterResponse.class))
+            .thenThrow(RestClientResponseException.class);
+
+        //verify
+        assertThrows(ObjectNotFoundException.class, ()-> rickAndMortyService.callAclService(idCharacter));
+    }
+
+    @Test
+    void getCharacterByIdWhenExceptionErrorTest() throws IOException {
+        //prepate data
+        int idCharacter = 1001;
+        //mock
+        when(restTemplate.getForObject(characterURL + idCharacter, CharacterResponse.class))
+            .thenThrow(RestClientException.class);
 
         //verify
         assertThrows(CommunicationException.class, ()-> rickAndMortyService.callAclService(idCharacter));

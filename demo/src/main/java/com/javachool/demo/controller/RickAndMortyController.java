@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class RickAndMortyController {
 
-    private LoggerConfiguration logger = LoggerConfiguration.getLogger("RickAndMortyController");
+    private final LoggerConfiguration logger = LoggerConfiguration.getLogger("RickAndMortyController");
 
     @Autowired
     private RickAndMortyService rickAndMortyService;
