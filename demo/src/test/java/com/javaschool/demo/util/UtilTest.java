@@ -1,6 +1,8 @@
 package com.javaschool.demo.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 class UtilTest {

@@ -17,6 +17,8 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	intTestImplementation.extendsFrom testImplementation
+	intTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 repositories {
