@@ -62,5 +62,8 @@ sourceSets {
 	intTest {
 		java.srcDirs = ['src/intTest/java']
 		resources.srcDirs = ['src/intTest/resources']
+		compileClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.test.output
 	}
 }

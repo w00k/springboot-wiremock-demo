@@ -6,6 +6,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.javaschool.demo.WiremockApplication;
 import com.javaschool.demo.utils.UtilTransformFile;
 import java.io.IOException;
 import org.junit.Rule;
