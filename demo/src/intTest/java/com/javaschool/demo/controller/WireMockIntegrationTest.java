@@ -34,18 +34,19 @@ public class WireMockIntegrationTest {
   static int port = 8089;
 
   @Autowired
-  private MockMvc mockMvc;
-
+  MockMvc mockMvc;
 
   @Rule
   public WireMockRule wireMockRule = new WireMockRule(port);
 
   @Test
-  public void callCervice() throws Exception {
+  public void callService() throws Exception {
+    // Load the response bodies from JSON files
     String responseBodyCharacter = UtilTransformFile.jsonToString("/stubs/response_200_character_1.json");
     String responseBodyLocation = UtilTransformFile.jsonToString("/stubs/response_200_location_3.json");
     String responseExpected = UtilTransformFile.jsonToString("/stubs/response_200_challenge_1.json");
 
+    // Configure WireMock stub mappings
     stubFor(com.github.tomakehurst.wiremock.client.WireMock.get(urlEqualTo("https://rickandmortyapi.com/api/character//1"))
         .willReturn(aResponse()
             .withStatus(200)
@@ -58,12 +59,14 @@ public class WireMockIntegrationTest {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withBody(responseBodyLocation)));
 
+    // Perform the HTTP request using MockMvc
     ResultActions resultActions = mockMvc
         .perform(get("http://localhost:" + port + "/rick-and-morty/v1/challenge/1")
             .contentType(APPLICATION_JSON)
             .accept(APPLICATION_JSON))
         .andExpect(status().isOk());
 
+    // Get the response and perform assertions
     MvcResult result = resultActions.andReturn();
     String contentAsString = result.getResponse().getContentAsString();
     assertNotNull(contentAsString);
